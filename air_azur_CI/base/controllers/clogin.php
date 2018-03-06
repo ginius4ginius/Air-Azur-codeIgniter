@@ -38,11 +38,49 @@ class Clogin extends CI_Controller {
                   $this->load->view('login');
 
                 }else {
-                  $this->session->set_userdata('login', 'test');
-                  $this->load->view('home');
+                 
+                    $nom=$_POST["login"];
+                    $mdp=$_POST["motDePasse"];
 
-                }
+                
+                 $query=$this->Login_model->getLogin();
+                 //var_dump($nom);
+                 //var_dump($mdp);
+                 var_dump($query);
+                 $ref = false;   
+
+                        foreach($query as $key => $value) {
+                            var_dump($value["code_agence"]);
+                            var_dump($value["mot_de_passe"]);
+                        if( $value["code_agence"]==$nom && $value["mot_de_passe"]==$mdp ){
+                            $ref = true;
+                        }
+                        else{
+                            $ref = false;
+                         /* var_dump($value["code_agence"]);
+                            var_dump($nom);
+                            var_dump($value["mot_de_passe"]);
+                            var_dump($mdp);*/
+                        }
+                        
+                        }
+                        
+                        if($ref==true){
+                        $this->load->view('home');
+                        $this->session->set_userdata($nom, $mdp);
+                        }
+                        else{
+                        $this->load->view('login');
+
+                        }
+  
+  
+                  //$this->session->set_userdata($nom, $mdp);
+                  //$this->load->view('home');
+
+                
 	}
+        }
         
         public function logout()
 	{

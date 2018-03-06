@@ -26,6 +26,7 @@
   <br />
   Chez CDI, nous reconnaissons que l'environnement, les collectivités qui accueillent les voyageurs, la diversité culturelle et nos relations avec nos employés, clients et partenaires sont d'une importance capitale. Voilà pourquoi CDI a adopté une politique de responsabilité d’entreprise en 2008. De plus, Air Azur s’engage à réduire son empreinte écologique et a adopté une politique environnementale.
           </div>
+          
 
         </div>
 
