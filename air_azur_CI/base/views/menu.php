@@ -4,9 +4,9 @@
 
         <nav class="navbar navbar-default">
           <ul class="nav navbar-nav">
-              <li id="menu_home"> <a href="/Air-Azur-codeIgniter/air_azur_CI/?action=home"><span class="glyphicon glyphicon-home"></span>   Accueil </a> </li>
-              <li id="menu_cat" > <a href="/Air-Azur-codeIgniter/air_azur_CI/?action=catalog"><span class="glyphicon glyphicon-plane"></span>    Liste des vols</a> </li>
-              <li id="menu_res" > <a href="/Air-Azur-codeIgniter/air_azur_CI/?action=reservation"><span class="glyphicon glyphicon-edit"></span>   Réservations</a> </li>
+              <li id="menu_home"> <a href="<?php echo site_url()?>/?action=home"><span class="glyphicon glyphicon-home"></span>   Accueil </a> </li>
+              <li id="menu_cat" > <a href="<?php echo site_url()?>/?action=catalog"><span class="glyphicon glyphicon-plane"></span>    Liste des vols</a> </li>
+              <li id="menu_res" > <a href="<?php echo site_url()?>/?action=reservation"><span class="glyphicon glyphicon-edit"></span>   Réservations</a> </li>
               
           </ul>
           <form method="POST" action=<?php echo site_url_logout()?> >
