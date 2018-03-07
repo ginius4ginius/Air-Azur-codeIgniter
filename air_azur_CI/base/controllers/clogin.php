@@ -52,7 +52,7 @@ class Clogin extends CI_Controller {
                     
 
                 
-                 $query=$this->Login_model->getLogin();
+                 $query=$this->Login_dao->getLogin();
                  $ref = false;   
 
                         foreach($query as $key => $value) {

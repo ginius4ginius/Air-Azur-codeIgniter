@@ -1,6 +1,6 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-Class ModelVol extends CI_Model{
+class Vol{
     
     private $numVol;
     private $datedep;
@@ -13,8 +13,7 @@ Class ModelVol extends CI_Model{
     private $aeroArr;
     
     //constructeur
-    public function __construct($vlg_num, $date_dep, $date_arr,$heure_dep,
-            $heure_arr, $nbr_places, $prix,$code_arp_dep, $code_arp_arr){
+    public function __construct($vlg_num, $date_dep, $date_arr,$heure_dep, $heure_arr, $nbr_places, $prix,$code_arp_dep, $code_arp_arr){
         
     parent::__construct();
     
