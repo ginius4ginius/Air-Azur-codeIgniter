@@ -29,7 +29,17 @@ class Clogin extends CI_Controller {
         
         public function controle()
 	{
-            
+            $nom=$_POST["login"];
+            $mdp=$_POST["motDePasse"];
+            //attribution des données pour la session utilisateur
+                            $newdata = array(
+                            'login'  => $nom,
+                            'password'     => $mdp,
+                            'logged_in' => TRUE
+                            );
+
+                            $this->session->set_userdata($newdata);
+                            
             $this->form_validation->set_rules('login', 'Le login', 'trim|required|min_length[3]|encode_php_tags');
             $this->form_validation->set_rules('motDePasse', 'Le mot de passe', 'trim|required|min_length[4]|encode_php_tags');
 
@@ -39,46 +49,29 @@ class Clogin extends CI_Controller {
 
                 }else {
                  
-                    $nom=$_POST["login"];
-                    $mdp=$_POST["motDePasse"];
+                    
 
                 
                  $query=$this->Login_model->getLogin();
-                 //var_dump($nom);
-                 //var_dump($mdp);
-                 var_dump($query);
                  $ref = false;   
 
                         foreach($query as $key => $value) {
-                            var_dump($value["code_agence"]);
-                            var_dump($value["mot_de_passe"]);
-                        if( $value["code_agence"]==$nom && $value["mot_de_passe"]==$mdp ){
-                            $ref = true;
-                        }
-                        else{
-                            $ref = false;
-                         /* var_dump($value["code_agence"]);
-                            var_dump($nom);
-                            var_dump($value["mot_de_passe"]);
-                            var_dump($mdp);*/
-                        }
-                        
+                                if( $value["code_agence"]==$nom && $value["mot_de_passe"]==$mdp ){
+                                    $ref = true;
+                                }
                         }
                         
                         if($ref==true){
-                        $this->load->view('home');
-                        $this->session->set_userdata($nom, $mdp);
+                            $this->load->view('home');
+                            //
+                            
+                            
                         }
                         else{
-                        $this->load->view('login');
+                            $this->load->view('login');
 
                         }
-  
-  
-                  //$this->session->set_userdata($nom, $mdp);
-                  //$this->load->view('home');
 
-                
 	}
         }
         

@@ -1,5 +1,14 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
+if ( ! function_exists('site_url_logout'))
+{
+	function site_url_logout()
+	{		
+		return base_url() . 'index.php/clogin/logout';
+	}
+}
+
 if ( ! function_exists('site_url'))
 {
 	function site_url($uri = '')

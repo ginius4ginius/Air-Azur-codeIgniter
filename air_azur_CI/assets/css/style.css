@@ -7,6 +7,10 @@ position: center;
   text-align: center;
 }
 
+.loginAgence {
+   text-align: right;
+}
+
 #titreAccueil,#listeVols, #listeResa{
   text-align: center;
   color: #0060B8 ;
@@ -136,6 +140,10 @@ cursor:pointer;
 }
 /**/
 .deco{
+   float: right;
+   padding: 1px 10px;
+}
+.loginAgence{
    float: right;
    padding: 1px 10px;
 }

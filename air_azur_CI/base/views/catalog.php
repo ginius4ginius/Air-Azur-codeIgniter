@@ -5,6 +5,14 @@
   <body>
     <div id="container">
       <?php $this->load->view('header');?>
+        
+        
+        
+        
+        
+        
+        
+        
 <div/>
 <?php $this->load->view('foot');?>
   </body>
