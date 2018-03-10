@@ -1,7 +1,10 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Clogin extends CI_Controller {
+class Manager extends CI_Controller {
+    
+    //chargement automatique
+    // l'index renvoi à la page demandé
 	public function index()
 	{
             $sLocation = "login";
@@ -26,7 +29,9 @@ class Clogin extends CI_Controller {
                     //exit();
                     //
 	}
-        
+     
+    //appel de la fonction depuis la vue login qui controle le formulaire
+    //envoi à login si false ou à home si true    
         public function controle()
 	{
             $nom=$_POST["login"];
@@ -48,10 +53,6 @@ class Clogin extends CI_Controller {
                   $this->load->view('login');
 
                 }else {
-                 
-                    
-
-                
                  $query=$this->Login_dao->getLogin();
                  $ref = false;   
 
@@ -63,18 +64,17 @@ class Clogin extends CI_Controller {
                         
                         if($ref==true){
                             $this->load->view('home');
-                            //
                             
-                            
+                          
                         }
                         else{
                             $this->load->view('login');
 
                         }
-
-	}
+                }
         }
         
+    //fonction appelée par le menu qui redirige à la vue login et détruit la session en cour    
         public function logout()
 	{
             //Détruit la session
@@ -82,6 +82,25 @@ class Clogin extends CI_Controller {
 
             //Redirige vers la page d'accueil
             redirect();
+        }
+        
+        
+    //fonction appelée depuis le menu qui renvoi à la page catalog    
+    //fonction qui affiche les vols
+        public function affichageDesVols(){
+          $data['table']= $this->Catalog_dao->getVols();
+          $this->load->view('catalog',$data);
+
+        }
+        
+    
+    //fonction appelée depuis catalog et qui renvoi à la page reservation
+    //cette fonction transmet les données du vol et la liste des clients    
+        public function reserverVol(){
+            $vData= $this->uri->segment(3);
+          $data['tab1e']= $this->Reservation_dao->getVol($vData);
+          $data['client']= $this->Reservation_dao->getClients();
+          $this->load->view('reservation',$data);
         }
 }
 

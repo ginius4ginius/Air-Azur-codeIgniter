@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('DAL/Login_dao', 'DAL/Catalog_dao');
+$autoload['model'] = array('DAL/Login_dao', 'DAL/Catalog_dao', 'DAL/Reservation_dao');

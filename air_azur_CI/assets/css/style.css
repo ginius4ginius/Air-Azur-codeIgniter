@@ -11,7 +11,7 @@ position: center;
    text-align: right;
 }
 
-#titreAccueil,#listeVols, #listeResa{
+#titreAccueil,#listeVols, #listeResa, #reservation{
   text-align: center;
   color: #0060B8 ;
   text-shadow: 2px;

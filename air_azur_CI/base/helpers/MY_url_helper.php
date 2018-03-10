@@ -5,7 +5,7 @@ if ( ! function_exists('site_url_logout'))
 {
 	function site_url_logout()
 	{		
-		return base_url() . 'index.php/clogin/logout';
+		return base_url() . 'index.php/manager/logout';
 	}
 }
 

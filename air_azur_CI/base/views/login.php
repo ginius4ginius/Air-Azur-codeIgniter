@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
     <br/>
     <?php 
     
-     echo form_open('clogin/controle');
+     echo form_open('manager/controle');
      echo "<center>";
      echo form_fieldset('connexion');
      
