@@ -27,5 +27,4 @@ class Reservation_dao extends CI_Model {
         $this->db->limit(1);
         return $this->db->get()->result();
     }
-
 }

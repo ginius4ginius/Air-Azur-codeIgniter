@@ -1,4 +1,4 @@
-<?php // session_start();?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <!DOCTYPE html>
 <html>
   <?php $this->load->view('head');?>

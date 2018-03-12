@@ -32,7 +32,7 @@ class Manager extends CI_Controller {
      
     //appel de la fonction depuis la vue login qui controle le formulaire
     //envoi à login si false ou à home si true    
-        public function controle()
+        public function controleLogin()
 	{
             $nom=$_POST["login"];
             $mdp=$_POST["motDePasse"];
@@ -44,14 +44,11 @@ class Manager extends CI_Controller {
                             );
 
                             $this->session->set_userdata($newdata);
-                            
-            $this->form_validation->set_rules('login', 'Le login', 'trim|required|min_length[3]|encode_php_tags');
-            $this->form_validation->set_rules('motDePasse', 'Le mot de passe', 'trim|required|min_length[4]|encode_php_tags');
+                            $this->form_validation->set_rules('login', 'Le login', 'trim|required|min_length[3]|encode_php_tags');
+                            $this->form_validation->set_rules('motDePasse', 'Le mot de passe', 'trim|required|min_length[4]|encode_php_tags');
 
                 if ($this->form_validation->run() == false) {
-                
-                  $this->load->view('login');
-
+                    $this->load->view('login');
                 }else {
                  $query=$this->Login_dao->getLogin();
                  $ref = false;   
@@ -64,13 +61,27 @@ class Manager extends CI_Controller {
                         
                         if($ref==true){
                             $this->load->view('home');
-                            
-                          
                         }
                         else{
                             $this->load->view('login');
-
                         }
+                }
+        }
+        
+        public function controleNewResa(){
+            $place=$_POST["places"];
+            $this->form_validation->set_rules('places', 'nom de places', 'trim|required|min_length[1]|encode_php_tags');
+            
+            if ($this->form_validation->run() == false) {
+                
+            $this->Reservations_dao->updateResa();
+            $data['table']= $this->Reservations_dao->getResas();
+            $this->load->view('reservations',$data);
+            
+                }else {
+                    
+            $data['table']= $this->Reservations_dao->getResas();
+            $this->load->view('reservations',$data);        
                 }
         }
         
@@ -97,10 +108,47 @@ class Manager extends CI_Controller {
     //fonction appelée depuis catalog et qui renvoi à la page reservation
     //cette fonction transmet les données du vol et la liste des clients    
         public function reserverVol(){
-            $vData= $this->uri->segment(3);
+          $vData= $this->uri->segment(3);
           $data['tab1e']= $this->Reservation_dao->getVol($vData);
           $data['client']= $this->Reservation_dao->getClients();
           $this->load->view('reservation',$data);
         }
+        
+        
+        public function affichageDesReservations(){
+          $data['table']= $this->Reservations_dao->getResas();
+          $this->load->view('reservations',$data);
+        }
+        
+        public function supprimerReservation(){
+            $vData= $this->uri->segment(3);
+            $this->Reservations_dao->deleteResa($vData);
+            $data['table']= $this->Reservations_dao->getResas();
+            $this->load->view('reservations',$data);
+        }
+        
+        public function modifierReservation(){
+            $vData= $this->uri->segment(3);
+            $data['table']= $this->Reservations_dao->getResa($vData);
+            $this->load->view('newReservation',$data);
+        }
+        
+        
+        public function pdf(){
+            $vData= $this->uri->segment(3);
+            $data['table']= $this->Reservations_dao->getResa($vData);
+           // $this->load->library('myFpdf');
+            $this->load->view('fpdf',$data);
+            
+        }
+        
+        
+        
+       
+        
+        
+        
+        
+        
 }
 

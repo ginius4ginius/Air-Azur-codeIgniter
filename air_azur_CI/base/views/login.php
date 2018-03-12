@@ -1,5 +1,4 @@
-<?php 
-defined('BASEPATH') OR exit('No direct script access allowed');?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <!DOCTYPE html>
 <?php  $this->load->view('head');?>
 <html>
@@ -12,12 +11,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
     <br/>
     <?php 
     
-     echo form_open('manager/controle');
+     echo form_open('manager/controleLogin');
      echo "<center>";
      echo form_fieldset('connexion');
      
             echo form_label('Login :', 'login');
-            $login= array('name'=>'login','id'=>'login','value'=>set_value('login'));
+            $login= array('name'=>'login','id'=>'login','value'=>set_value('login'),);
             echo form_input($login);
             
             
@@ -38,6 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
      
     ?>
 </div>
+    <br /><br /><br /><br /><br /><br /><br /><br />
 <?php $this->load->view('foot');?>
 </body>
 </html>
