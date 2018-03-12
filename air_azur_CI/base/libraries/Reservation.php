@@ -81,7 +81,7 @@ class Reservation extends CI_Model {
         return $this->cln_id;
     }
 
-    public function sgtVlgNum() {
+    public function getVlgNum() {
         return $this->vlg_num;
     }
 

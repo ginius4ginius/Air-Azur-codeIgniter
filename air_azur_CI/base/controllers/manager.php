@@ -101,7 +101,6 @@ class Manager extends CI_Controller {
             if ($this->form_validation->run() == false) {
                 $data['tab1e']= $this->Reservation_dao->getVol($vData);
                 $this->load->view('newClient',$vData);
-           // $this->affichageDesVols();    
             
                 }else {
                     $oClient['nom']=$_POST["nom"];
@@ -115,14 +114,46 @@ class Manager extends CI_Controller {
                     $data['client']= $this->Reservation_dao->getClients();
                     
                      $this->load->view('newReservation',$data);
-                  //  $this->affichageDesVols();
             
                 }
         }
         
         public function controleResa(){
+            $vData= $this->uri->segment(3);
+             $this->form_validation->set_rules('nbrPlaces', 'places', 'trim|required|min_length[1]|encode_php_tags');
             
+            if ($this->form_validation->run() == false) {
+                $data['tab1e']= $this->Reservation_dao->getVol($vData);
+                $data['client']= $this->Reservation_dao->getClients();
+                $this->load->view('newReservation',$data);
             
+                }else {
+                    $vAgenceLogin = $_SESSION["login"];
+                    $data['vol']= $this->Reservation_dao->getVol($vData);
+                    $data['client']= $this->Reservation_dao->getClient($_POST["nom"]);
+                    $data['agence']=$this->Reservation_dao->getAgence($vAgenceLogin);
+                    
+                    foreach( $data['vol'] as $don):
+                    $oResa['vlg_num']=$don->vlg_num;
+                    $oResa['date_dep']=$don->date_dep;
+                    endforeach;
+                    
+                    foreach( $data['agence'] as $don):
+                        $oResa['gnc_id']=$don->gnc_id;
+                    endforeach;
+                    
+                    foreach( $data['client'] as $don):
+                        $oResa['cln_id']=$don->cln_id;
+                    endforeach;
+                    
+                    
+                    $oResa['nbr_places']=$_POST["nbrPlaces"];
+                    $oResa['date_reservation']=date("Y-m-d");
+                    
+                    $this->Reservation_dao->addReservation($oResa);
+                    $this->affichageDesVols();
+            
+                }
         }
         
     //fonction appelée par le menu qui redirige à la vue login et détruit la session en cour    
@@ -152,7 +183,7 @@ class Manager extends CI_Controller {
           $data['tab1e']= $this->Reservation_dao->getVol($vData);
           $data['client']= $this->Reservation_dao->getClients();
           $this->load->view('newReservation',$data);
-          var_dump($data['client']);
+         // var_dump($data['client']);
         }
         
         

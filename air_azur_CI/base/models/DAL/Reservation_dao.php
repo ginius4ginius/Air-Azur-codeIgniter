@@ -2,10 +2,23 @@
 
 class Reservation_dao extends CI_Model {
 
+    public function getAgence($vAgenceLogin){
+        $this->db->select('gnc_id');
+        $this->db->from('agence');
+        $this->db->where('code_agence', $vAgenceLogin);
+        return $this->db->get()->result();
+    }
+    
     public function getClients() {
-        $this->db->select('nom,prenom');
+        $this->db->select('cln_id,nom,prenom');
         $this->db->from('client');
         $this->db->order_by('nom');
+        return $this->db->get()->result();
+    }
+    public function getClient($vNom) {
+        $this->db->select('cln_id,nom,prenom');
+        $this->db->from('client');
+        $this->db->where('nom', $vNom);
         return $this->db->get()->result();
     }
     
@@ -32,7 +45,6 @@ class Reservation_dao extends CI_Model {
         $this->load->library('Client');
             $object = new Client();
             $object->makeParameters($oClient['nom'], $oClient['prenom'], $oClient['adr_rue'], $oClient['adr_cp'], $oClient['adr_ville']);
-           // $this->db->insert('client', $object);
             
             $this->db->set('nom', $object->getNom());
             $this->db->set('prenom', $object->getPrenom());
@@ -44,17 +56,15 @@ class Reservation_dao extends CI_Model {
     
     public function addReservation($tab){
         $this->load->library('Reservation');
-        foreach($tab['table'] as $don):
-                    $data = array (
-                            'gnc_id' => $don->gnc_id,
-                            'nbr_places_res' => $don->nbr_places_res,
-                            'dateResa' => $don->dateResa,
-                            'cln_id' => $don->cln_id,
-                            'vol' => $don->vol,
-                            'date_dep' => $don->date_dep);
-            endforeach;
             $object = new Reservation();
-            $object->makeParameters($data['gnc_id'], $data['nbr_places_res'], $data['dateResa'], $data['cln_id'], $data['vol'], $data['date_dep']);
-            $this->db->insert('reservation', $object);
+            $object->makeParameters($tab['gnc_id'], $tab['nbr_places'], $tab['date_reservation'], $tab['cln_id'], $tab['vlg_num'], $tab['date_dep']);
+            
+            $this->db->set('gnc_id', $object->getAgenceId());
+            $this->db->set('nbr_places_res', $object->getPlace());
+            $this->db->set('date_reservation', $object->getDateResa());
+            $this->db->set('cln_id', $object->getClientId());
+            $this->db->set('vlg_num', $object->getVlgNum());
+            $this->db->set('date_dep', $object->getDateDep());
+            $this->db->insert('reservation');
     }
 }
