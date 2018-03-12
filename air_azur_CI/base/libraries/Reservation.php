@@ -1,28 +1,32 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Reservation {
 
-    private $rsr_num;
-    private $gnc_id;
-    private $nbr_places_res;
-    private $date_reservation;
-    private $cln_id;
-    private $vlg_num;
-    private $date_dep;
+class Reservation extends CI_Model {
+
+    private $rsr_num=null;
+    private $gnc_id=null;
+    private $nbr_places_res=null;
+    private $date_reservation=null;
+    private $cln_id=null;
+    private $vlg_num=null;
+    private $date_dep=null;
 
     //constructeur
-    public function __construct($rsr_num, $gnc_id, $nbr_places_res, $date_reservation, $cln_id, $vlg_num, $date_dep) {
+    public function __construct() {
 
         parent::__construct();
 
-        $this->setNumResa($rsr_num);
-        $this->setAgenceId($gnc_id);
-        $this->setPlace($nbr_places_res);
-        $this->setDateResa($date_reservation);
-        $this->setClientId($cln_id);
-        $this->setVlgNum($vlg_num);
-        $this->setDateDep($date_dep);
+    }
+    
+    public function makeParameters($gnc_id, $nbr_places_res, $date_reservation, $cln_id, $vlg_num, $date_dep){
+        
+        $this->gnc_id=$gnc_id;
+        $this->nbr_places_res=$nbr_places_res;
+        $this->date_reservation=$date_reservation;
+        $this->cln_id=$cln_id;
+        $this->vlg_num=$vlg_num;
+        $this->date_dep=$date_dep;
     }
 
     //
@@ -58,31 +62,31 @@ class Reservation {
     //
     /////////////////////////////////////getters
     public function getNumResa() {
-        return $this->$rsr_num;
+        return $this->rsr_num;
     }
 
     public function getAgenceId() {
-        return $this->$gnc_id;
+        return $this->gnc_id;
     }
 
     public function getPlace() {
-        return $this->$nbr_places_res;
+        return $this->nbr_places_res;
     }
 
     public function getDateResa() {
-        return $this->$date_reservation;
+        return $this->date_reservation;
     }
 
     public function getClientId() {
-        return $this->$cln_id;
+        return $this->cln_id;
     }
 
     public function sgtVlgNum() {
-        return $this->$vlg_num;
+        return $this->vlg_num;
     }
 
     public function getDateDep() {
-        return $this->$date_dep;
+        return $this->date_dep;
     }
 
 }

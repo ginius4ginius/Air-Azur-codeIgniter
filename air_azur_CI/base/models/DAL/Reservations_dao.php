@@ -15,6 +15,7 @@ class Reservations_dao extends CI_Model {
                 (nbr_places_res * prix) as 'prixTotal',
                 date_reservation as 'dateResa',
                 gnc_id,
+                reservation.cln_id,
                 client.adr_rue as adr_rue ,
                 client.adr_cp as adr_cp,
                 client.adr_ville as adr_ville
@@ -52,14 +53,31 @@ class Reservations_dao extends CI_Model {
         }
         
         public function deleteResa($vData){
-            
             $this->db->where('rsr_num', $vData);
             $this->db->delete('reservation'); 
             
         }
         
-        public function updateResa($oData){
-            //code
+        public function updateResa($tab){
+            $this->load->library('Reservation');
+            $oPlace=$tab['place'];
+            //var_dump($oTable);
+            
+            foreach($tab['table'] as $don):
+                    $data = array (
+                            'rsr_num' => $don->rsr_num,
+                            'gnc_id' => $don->gnc_id,
+                            'dateResa' => $don->dateResa,
+                            'cln_id' => $don->cln_id,
+                            'vol' => $don->vol,
+                            'date_dep' => $don->date_dep);
+            endforeach;
+            $object = new Reservation();
+            $object->makeParameters($data['gnc_id'], $oPlace, $data['dateResa'], $data['cln_id'], $data['vol'], $data['date_dep']);
+            $tDonnees_p = array('nbr_places_res' => $object->getPlace());
+            $this->db->set($tDonnees_p);
+            $this->db->where('rsr_num',$data['rsr_num']);
+            $this->db->update('reservation');
         }
 
 }

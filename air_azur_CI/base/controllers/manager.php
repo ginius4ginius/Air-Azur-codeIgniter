@@ -44,8 +44,8 @@ class Manager extends CI_Controller {
                             );
 
                             $this->session->set_userdata($newdata);
-                            $this->form_validation->set_rules('login', 'Le login', 'trim|required|min_length[3]|encode_php_tags');
-                            $this->form_validation->set_rules('motDePasse', 'Le mot de passe', 'trim|required|min_length[4]|encode_php_tags');
+                            $this->form_validation->set_rules('login', 'login', 'trim|required|min_length[3]|encode_php_tags');
+                            $this->form_validation->set_rules('motDePasse', 'mot de passe', 'trim|required|min_length[4]|encode_php_tags');
 
                 if ($this->form_validation->run() == false) {
                     $this->load->view('login');
@@ -68,21 +68,61 @@ class Manager extends CI_Controller {
                 }
         }
         
-        public function controleNewResa(){
+        public function controleUpdateResa(){
+            $vData= $this->uri->segment(3);
             $place=$_POST["places"];
+            
             $this->form_validation->set_rules('places', 'nom de places', 'trim|required|min_length[1]|encode_php_tags');
             
             if ($this->form_validation->run() == false) {
                 
-            $this->Reservations_dao->updateResa();
             $data['table']= $this->Reservations_dao->getResas();
-            $this->load->view('reservations',$data);
+            $this->load->view('reservations',$data);   
             
                 }else {
                     
+            
+            $tab['table']= $this->Reservations_dao->getResa($vData);
+            $tab['place']=$_POST["places"];
+            $this->Reservations_dao->updateResa($tab);
             $data['table']= $this->Reservations_dao->getResas();
-            $this->load->view('reservations',$data);        
+            $this->load->view('reservations',$data);
                 }
+        }
+        
+        public function controleClient(){
+            $vData= $this->uri->segment(3);
+             $this->form_validation->set_rules('nom', 'nom', 'trim|required|min_length[2]|encode_php_tags');
+              $this->form_validation->set_rules('prenom', 'prenom', 'trim|required|min_length[2]|encode_php_tags');
+               $this->form_validation->set_rules('adr_rue', 'rue', 'trim|required|min_length[5]|encode_php_tags');
+                $this->form_validation->set_rules('adr_cp', 'code postal', 'trim|required|min_length[5]|encode_php_tags');
+                 $this->form_validation->set_rules('adr_ville', 'ville', 'trim|required|min_length[2]|encode_php_tags');
+            
+            if ($this->form_validation->run() == false) {
+                $data['tab1e']= $this->Reservation_dao->getVol($vData);
+                $this->load->view('newClient',$vData);
+           // $this->affichageDesVols();    
+            
+                }else {
+                    $oClient['nom']=$_POST["nom"];
+                    $oClient['prenom']=$_POST["prenom"];
+                    $oClient['adr_rue']=$_POST["adr_rue"];
+                    $oClient['adr_cp']=$_POST["adr_cp"];
+                    $oClient['adr_ville']=$_POST["adr_ville"];
+                    
+                    $this->Reservation_dao->addClient($oClient);
+                    $data['tab1e']= $this->Reservation_dao->getVol($vData);
+                    $data['client']= $this->Reservation_dao->getClients();
+                    
+                     $this->load->view('newReservation',$data);
+                  //  $this->affichageDesVols();
+            
+                }
+        }
+        
+        public function controleResa(){
+            
+            
         }
         
     //fonction appelée par le menu qui redirige à la vue login et détruit la session en cour    
@@ -111,7 +151,8 @@ class Manager extends CI_Controller {
           $vData= $this->uri->segment(3);
           $data['tab1e']= $this->Reservation_dao->getVol($vData);
           $data['client']= $this->Reservation_dao->getClients();
-          $this->load->view('reservation',$data);
+          $this->load->view('newReservation',$data);
+          var_dump($data['client']);
         }
         
         
@@ -130,7 +171,8 @@ class Manager extends CI_Controller {
         public function modifierReservation(){
             $vData= $this->uri->segment(3);
             $data['table']= $this->Reservations_dao->getResa($vData);
-            $this->load->view('newReservation',$data);
+            $data['num']= $vData;
+            $this->load->view('updateReservation',$data);
         }
         
         
@@ -140,6 +182,13 @@ class Manager extends CI_Controller {
            // $this->load->library('myFpdf');
             $this->load->view('fpdf',$data);
             
+        }
+        
+        public function ajouterClient(){
+            $vData= $this->uri->segment(3); //date_dep
+            $data['table']= $this->Reservation_dao->getVol($vData);
+           // var_dump($data);
+            $this->load->view('newClient',$data);
         }
         
         

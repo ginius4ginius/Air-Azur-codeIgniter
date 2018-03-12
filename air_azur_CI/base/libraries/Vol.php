@@ -2,39 +2,38 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Vol {
+class Vol extends CI_Model {
 
-    private $numVol;
-    private $datedep;
-    private $dateArr;
-    private $heureDep;
-    private $heureArr;
-    private $places;
-    private $prix;
-    private $aeroDepart;
-    private $aeroArr;
+    private $numVol=null;
+    private $datedep=null;
+    private $dateArr=null;
+    private $heureDep=null;
+    private $heureArr=null;
+    private $places=null;
+    private $prix=null;
+    private $aeroDepart=null;
+    private $aeroArr=null;
 
     //constructeur
-    public function __construct($vlg_num, $date_dep, $date_arr, $heure_dep, $heure_arr, $nbr_places, $prix, $code_arp_dep, $code_arp_arr) {
+    public function __construct() {
 
         parent::__construct();
+    }
+    
+    public function makeParameters($date_dep, $date_arr, $heure_dep, $heure_arr, $nbr_places, $prix, $code_arp_dep, $code_arp_arr) {
 
-        $this->setNumVol($vlg_num);
-        $this->setDatedep($date_dep);
-        $this->setDateArr($date_arr);
-        $this->setHeureDep($heure_dep);
-        $this->setHeureArr($heure_arr);
-        $this->setPlaces($nbr_places);
-        $this->setPrix($prix);
-        $this->setAeroDepart($code_arp_dep);
-        $this->setAeroArr($code_arp_arr);
+        $this->date_dep=($date_dep);
+        $this->date_arr=($date_arr);
+        $this->heure_dep=($heure_dep);
+        $this->heure_arr=($heure_arr);
+        $this->nbr_places=($nbr_places);
+        $this->prix=($prix);
+        $this->code_arp_dep=($code_arp_dep);
+        $this->code_arp_arr=($code_arp_arr);
     }
 
     //
     ///////////////////////////////////////setters
-    private function setNumVol($vlg_num) {
-        $this->numVol = $vlg_num;
-    }
 
     private function setDatedep($date_dep) {
         $this->datedep = $date_dep;
@@ -71,39 +70,39 @@ class Vol {
     //
     /////////////////////////////////////getters
     public function getNumVol() {
-        return $this->$numVol;
+        return $this->numVol;
     }
 
     public function getDatedep() {
-        return $this->$date_dep;
+        return $this->date_dep;
     }
 
     public function getDateArr() {
-        return $this->$date_arr;
+        return $this->date_arr;
     }
 
     public function getHeureDep() {
-        return $this->$heure_dep;
+        return $this->heure_dep;
     }
 
     public function getHeureArr() {
-        return $this->$heure_arr;
+        return $this->heure_arr;
     }
 
     public function getPlaces() {
-        return $this->$nbr_places;
+        return $this->nbr_places;
     }
 
     public function getPrix() {
-        return $this->$vlg_num;
+        return $this->vlg_num;
     }
 
     public function getAeroDepart() {
-        return $this->$code_arp_dep;
+        return $this->code_arp_dep;
     }
 
     public function getAeroArr() {
-        return $this->$code_arp_arr;
+        return $this->code_arp_arr;
     }
 
 }

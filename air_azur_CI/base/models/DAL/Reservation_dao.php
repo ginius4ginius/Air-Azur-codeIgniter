@@ -27,4 +27,34 @@ class Reservation_dao extends CI_Model {
         $this->db->limit(1);
         return $this->db->get()->result();
     }
+    
+    public function addClient($oClient){
+        $this->load->library('Client');
+            $object = new Client();
+            $object->makeParameters($oClient['nom'], $oClient['prenom'], $oClient['adr_rue'], $oClient['adr_cp'], $oClient['adr_ville']);
+           // $this->db->insert('client', $object);
+            
+            $this->db->set('nom', $object->getNom());
+            $this->db->set('prenom', $object->getPrenom());
+            $this->db->set('adr_rue', $object->getAdrRue());
+            $this->db->set('adr_cp', $object->getAdrCp());
+            $this->db->set('adr_ville', $object->getAdrVille());
+            $this->db->insert('client');
+    }
+    
+    public function addReservation($tab){
+        $this->load->library('Reservation');
+        foreach($tab['table'] as $don):
+                    $data = array (
+                            'gnc_id' => $don->gnc_id,
+                            'nbr_places_res' => $don->nbr_places_res,
+                            'dateResa' => $don->dateResa,
+                            'cln_id' => $don->cln_id,
+                            'vol' => $don->vol,
+                            'date_dep' => $don->date_dep);
+            endforeach;
+            $object = new Reservation();
+            $object->makeParameters($data['gnc_id'], $data['nbr_places_res'], $data['dateResa'], $data['cln_id'], $data['vol'], $data['date_dep']);
+            $this->db->insert('reservation', $object);
+    }
 }

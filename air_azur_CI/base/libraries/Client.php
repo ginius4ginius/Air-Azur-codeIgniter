@@ -2,33 +2,32 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Client {
+class Client extends CI_Model {
 
-    private $cln_id;
-    private $nom;
-    private $prenom;
-    private $adr_rue;
-    private $adr_cp;
-    private $adr_ville;
+    private $cln_id=null;
+    private $nom=null;
+    private $prenom=null;
+    private $adr_rue=null;
+    private $adr_cp=null;
+    private $adr_ville=null;
 
     //constructeur
-    public function __construct($cln_id, $nom, $prenom, $adr_rue, $adr_cp, $adr_ville) {
+    public function __construct() {
 
         parent::__construct();
+    }
+    
+    public function makeParameters($nom, $prenom, $adr_rue, $adr_cp, $adr_ville) {
 
-        $this->setClientId($cln_id);
-        $this->setNom($nom);
-        $this->setPrenom($prenom);
-        $this->setAdrRue($adr_rue);
-        $this->setAdrCp($adr_cp);
-        $this->setAdrVille($adr_ville);
+        $this->nom=($nom);
+        $this->prenom=($prenom);
+        $this->adr_rue=($adr_rue);
+        $this->adr_cp=($adr_cp);
+        $this->adr_ville=($adr_ville);
     }
 
     //
     ///////////////////////////////////////setters
-    private function setClientId($cln_id) {
-        $this->cln_id = $cln_id;
-    }
 
     private function setNom($nom) {
         $this->nom = $nom;
@@ -53,27 +52,27 @@ class Client {
     //
     /////////////////////////////////////getters
     public function getClientId() {
-        return $this->$cln_id;
+        return $this->cln_id;
     }
 
     public function getNom() {
-        return $this->$nom;
+        return $this->nom;
     }
 
     public function getPrenom() {
-        return $this->$prenom;
+        return $this->prenom;
     }
 
     public function getAdrRue() {
-        return $this->$adr_rue;
+        return $this->adr_rue;
     }
 
     public function getAdrCp() {
-        return $this->$adr_cp;
+        return $this->adr_cp;
     }
 
     public function getAdrVille() {
-        return $this->$adr_ville;
+        return $this->adr_ville;
     }
 
 }
