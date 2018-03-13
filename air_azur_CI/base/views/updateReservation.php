@@ -6,7 +6,6 @@
     <div id="container">
       <?php $this->load->view('header');
             echo '<br />';
-      
             foreach($table as $don):
         echo'<div id="reservation">';
             echo 'Réservation n° '.$don->rsr_num;
@@ -23,7 +22,7 @@
             echo  'Arrivée : '.$don->date_arr.' - '.$don->heure_arr.'<br />';
             echo  'Prix par place HT : '.$don->prixPlace.' €<br><br>';
             
-            echo form_open('manager/controleUpdateResa/'.$don->rsr_num.'');
+            echo form_open('manager/controleUpdateResa/'.$don->rsr_num.'/'.$don->gnc_id.'');
             echo form_label('Nombre de places :', 'places');
             $value= array('name'=>'places','id'=>'places');
             echo form_input($value);
@@ -36,7 +35,7 @@
             
             echo '<br />';
             
-            echo '<a class="stylebouton" href="'. base_url().'index.php/manager/affichageDesReservations/'.$don->rsr_num.'">Retour</a>';
+            echo '<a class="stylebouton" href="'. base_url().'index.php/manager/affichageDesReservations/'.$don->rsr_num.'/'.$don->gnc_id.'">Retour</a>';
             
             echo '<br /><br /><br /><br /><br />';
             

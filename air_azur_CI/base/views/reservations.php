@@ -40,17 +40,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                     echo '<td>'.$don->dateResa.'</td>';
                     
                     $data = array (
-                        'rsr_num'=>$don->rsr_num 
-                            );
-                    
-                    foreach($agence as $don):
-                    $data2 = array (
+                        'rsr_num'=>$don->rsr_num,
                         'gnc_id'=>$don->gnc_id 
-                            );
-                    endforeach;  
-                    $monlienModif = base_url("index.php/manager/modifierReservation/".$data['rsr_num']);
+                            );  
+                    $monlienModif = base_url("index.php/manager/modifierReservation/".$data['rsr_num']."/".$data['gnc_id']);
                     $monlienDelete = base_url("index.php/manager/supprimerReservation/".$data['rsr_num']);
-                    $monlienPdf = base_url("index.php/manager/pdf/".$data['rsr_num']."/".$data2['gnc_id']);
+                    $monlienPdf = base_url("index.php/manager/pdf/".$data['rsr_num']."/".$data['gnc_id']);
                     echo '<td><a href="'.$monlienModif.'"><span class="glyphicon glyphicon-edit"></span>   Modifier</a>';
                     echo '<td><a href="'.$monlienDelete.'"><span class="glyphicon glyphicon-trash"></span>   Supprimer</a>';
                     echo '<td><a href="'.$monlienPdf.'"><span class="glyphicon glyphicon-envelope"></span>   Télécharger</a>';

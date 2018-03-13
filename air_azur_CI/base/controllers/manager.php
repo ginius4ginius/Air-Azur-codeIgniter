@@ -70,6 +70,7 @@ class Manager extends CI_Controller {
         
         public function controleUpdateResa(){
             $vData= $this->uri->segment(3);
+            $vData2= $this->uri->segment(4);
             $place=$_POST["places"];
             
             $this->form_validation->set_rules('places', 'nom de places', 'trim|required|min_length[1]|encode_php_tags');
@@ -82,7 +83,7 @@ class Manager extends CI_Controller {
                 }else {
                     
             
-            $tab['table']= $this->Reservations_dao->getResa($vData);
+            $tab['table']= $this->Reservations_dao->getResa($vData,$vData2);
             $tab['place']=$_POST["places"];
             $this->Reservations_dao->updateResa($tab);
             $data['table']= $this->Reservations_dao->getResas();
@@ -183,7 +184,6 @@ class Manager extends CI_Controller {
           $data['tab1e']= $this->Reservation_dao->getVol($vData);
           $data['client']= $this->Reservation_dao->getClients();
           $this->load->view('newReservation',$data);
-         // var_dump($data['client']);
         }
         
         
@@ -202,7 +202,8 @@ class Manager extends CI_Controller {
         
         public function modifierReservation(){
             $vData= $this->uri->segment(3);
-            $data['table']= $this->Reservations_dao->getResa($vData);
+            $vData2= $this->uri->segment(4);
+            $data['table']= $this->Reservations_dao->getResa($vData,$vData2);
             $data['num']= $vData;
             $this->load->view('updateReservation',$data);
         }
@@ -220,7 +221,6 @@ class Manager extends CI_Controller {
         public function ajouterClient(){
             $vData= $this->uri->segment(3); //date_dep
             $data['table']= $this->Reservation_dao->getVol($vData);
-            //var_dump($data);
             $this->load->view('newClient',$data);
         }
         

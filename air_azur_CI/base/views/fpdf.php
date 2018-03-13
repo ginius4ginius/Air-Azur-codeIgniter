@@ -88,7 +88,6 @@ class RPDF extends FPDF
 
 
     foreach($table as $don):
-        //var_dump($table);
         $aParams['vol'] = $don->vol;
         $aParams['date_dep'] = $don->date_dep;
         $aParams['date_arr'] = $don->date_arr;
