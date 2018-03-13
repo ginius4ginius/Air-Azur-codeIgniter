@@ -130,7 +130,7 @@ class Manager extends CI_Controller {
                 }else {
                     $vAgenceLogin = $_SESSION["login"];
                     $data['vol']= $this->Reservation_dao->getVol($vData);
-                    $data['client']= $this->Reservation_dao->getClient($_POST["nom"]);
+                    $data['client']= $this->Reservation_dao->getClient($_POST["cln_id"]);
                     $data['agence']=$this->Reservation_dao->getAgence($vAgenceLogin);
                     
                     foreach( $data['vol'] as $don):

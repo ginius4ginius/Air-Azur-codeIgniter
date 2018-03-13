@@ -15,10 +15,10 @@ class Reservation_dao extends CI_Model {
         $this->db->order_by('nom');
         return $this->db->get()->result();
     }
-    public function getClient($vNom) {
+    public function getClient($vid) {
         $this->db->select('cln_id,nom,prenom');
         $this->db->from('client');
-        $this->db->where('nom', $vNom);
+        $this->db->where('cln_id', $vid);
         return $this->db->get()->result();
     }
     

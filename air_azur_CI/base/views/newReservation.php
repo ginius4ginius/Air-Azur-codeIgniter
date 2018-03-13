@@ -18,7 +18,8 @@
     endforeach;
     foreach($client as $don):
         //probleme de génération de la liste des clients car écrase les nom identiques
-                    $tableDesClients[$don->nom] = $don->nom.' '.$don->prenom;
+        $vnom = $don->nom;
+                    $tableDesClients[$don->cln_id] = $don->nom.' '.$don->prenom;
                     endforeach;
                     //  var_dump($tableDesClients);
      echo form_open('manager/controleResa/'.$vdata);
@@ -33,10 +34,10 @@
            echo   'Prix HT : '.$don->prix.' € <br />';
             
         endforeach;
-            
+        
             echo '<br />';
-            echo form_dropdown('nom', $tableDesClients);
-            echo '<a class="stylebouton" href="'. base_url().'index.php/manager/ajouterClient/'.$don->date_dep.'">Nouveau client</a>';
+            echo form_dropdown('cln_id', $tableDesClients);
+            echo '<a class="stylebouton" href="'. base_url().'index.php/manager/ajouterClient/'.$vdata.'">Nouveau client</a>';
             echo '<br /><br />';
             
             echo form_label('Nombre de places :  ', 'nbrPlaces');
