@@ -40,24 +40,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
                     echo '<td>'.$don->dateResa.'</td>';
                     
                     $data = array (
-                        'rsr_num'=>$don->rsr_num
-                       /* 'vol' => $don->vol,
-                        'depart' => $don->date_dep.' - '.$don->heure_dep,
-                        'arrivee' =>$don->date_arr.' - '.$don->heure_arr,
-                        'prix' =>$don->prixPlace,
-                        'client' =>$don ->nomClient.' '.$don->prenomClient,
-                        'adr_rue'=>$don->adr_rue,
-                        'adr_cp'=>$don->adr_cp,
-                        'adr_ville'=>$don->adr_ville,
-                        'gnc_id'=>$don->gnc_id,
-                        'nbr_places'=>$don->place,
-                        * 'prix_calc'=>$don->prixTotal,
-                        
-                        * */
+                        'rsr_num'=>$don->rsr_num 
                             );
+                    
+                    foreach($agence as $don):
+                    $data2 = array (
+                        'gnc_id'=>$don->gnc_id 
+                            );
+                    endforeach;  
                     $monlienModif = base_url("index.php/manager/modifierReservation/".$data['rsr_num']);
                     $monlienDelete = base_url("index.php/manager/supprimerReservation/".$data['rsr_num']);
-                    $monlienPdf = base_url("index.php/manager/pdf/".$data['rsr_num']);
+                    $monlienPdf = base_url("index.php/manager/pdf/".$data['rsr_num']."/".$data2['gnc_id']);
                     echo '<td><a href="'.$monlienModif.'"><span class="glyphicon glyphicon-edit"></span>   Modifier</a>';
                     echo '<td><a href="'.$monlienDelete.'"><span class="glyphicon glyphicon-trash"></span>   Supprimer</a>';
                     echo '<td><a href="'.$monlienPdf.'"><span class="glyphicon glyphicon-envelope"></span>   Télécharger</a>';

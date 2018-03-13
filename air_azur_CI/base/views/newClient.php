@@ -23,6 +23,7 @@
       <div id = "formulaireConnexion">
     
     <?php
+          //var_dump($table);
     foreach($table as $don):
            $vdata=$don->date_dep;
         endforeach;

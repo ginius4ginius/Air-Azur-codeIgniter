@@ -3,6 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class RPDF extends FPDF
 {
+        function txt($s) {
+        return utf8_decode($s);
+        }
+
         //mise ne page des titres
          function TitreChapitre ($libelle){
              $this->SetFont('Arial','',12);
@@ -14,7 +18,7 @@ class RPDF extends FPDF
        // En-tête
        function Header()
        {
-       $this->Image('../img/banniere.png',10,6,190);
+       $this->Image(img_url('banniere.png'),10,6,190);
        $this->SetFont('Arial','B',15);
        $this->Cell(80);
        $this->Ln(20);
@@ -81,73 +85,91 @@ class RPDF extends FPDF
 
 }
 
+
+
+    foreach($table as $don):
+        //var_dump($table);
+        $aParams['vol'] = $don->vol;
+        $aParams['date_dep'] = $don->date_dep;
+        $aParams['date_arr'] = $don->date_arr;
+        $aParams['prixPlace'] = $don->prixPlace;
+        $aParams['nomClient'] = $don->nomClient.' - '.$don->prenomClient;
+        $aParams['adr_rue'] = $don->adr_rue;
+        $aParams['adr_cp'] = $don->adr_cp;
+        $aParams['adr_ville'] = $don->adr_ville;
+        $aParams['gnc_id'] = $don->gnc_id;
+        $aParams['place'] = $don->place;
+        $aParams['prixTotal'] = $don->prixTotal;
+        $aParams['rsr_num'] = $don->rsr_num;
+    endforeach;
+                    
 // Instanciation de la classe dérivée
-$$this->myPdf = new RPDF();
-    $$this->myPdf->AddPage();
+    $this->myPdf = new RPDF();
+    $this->myPdf->AddPage();
 
-    $$this->myPdf->TitreChapitre('INFORMATION VOL');
+    $this->myPdf->TitreChapitre('INFORMATION VOL');
     //--------------------------------- vol
-    $$this->myPdf->SetFont('Arial','B',16);
-    $$this->myPdf->Cell(40,10,txt('Vol '.$aParams['vol'])) ;
-    $$this->myPdf->Line(10,70,200,70);
-    $$this->myPdf->Ln();
-    $$this->myPdf->Ln();
+    $this->myPdf->SetFont('Arial','B',16);
+    $this->myPdf->Cell(40,10,utf8_decode('Vol '.$aParams['vol'])) ;
+    $this->myPdf->Line(10,70,200,70);
+    $this->myPdf->Ln();
+    $this->myPdf->Ln();
 
-    $$this->myPdf->SetFont('Arial','u',12);
-    $$this->myPdf->Cell(40,10,txt('Départ: '));
-    $$this->myPdf->SetFont('Arial','',12);
-    $$this->myPdf->Cell(40,10,txt($aParams['depart']));
-    $$this->myPdf->Ln();
+    $this->myPdf->SetFont('Arial','u',12);
+    $this->myPdf->Cell(40,10,utf8_decode('Départ: '));
+    $this->myPdf->SetFont('Arial','',12);
+    $this->myPdf->Cell(40,10,utf8_decode($aParams['date_dep']));
+    $this->myPdf->Ln();
 
-    $$this->myPdf->SetFont('Arial','u',12);
-    $$this->myPdf->Cell(40,10,txt('Arrivée: '));
-    $$this->myPdf->SetFont('Arial','',12);
-    $$this->myPdf->Cell(40,10,txt($aParams['arrivee']));
-    $$this->myPdf->Ln();
-    $$this->myPdf->SetFont('Arial','u',12);
-    $$this->myPdf->Cell(40,10,txt('Prix du billet: '));
-    $$this->myPdf->SetFont('Arial','',12);
-    $$this->myPdf->Cell(40,10,txt($aParams['prix']." euros"));
-    $$this->myPdf->Ln();
-    $$this->myPdf->Ln();
+    $this->myPdf->SetFont('Arial','u',12);
+    $this->myPdf->Cell(40,10,utf8_decode('Arrivée: '));
+    $this->myPdf->SetFont('Arial','',12);
+    $this->myPdf->Cell(40,10,utf8_decode($aParams['date_arr']));
+    $this->myPdf->Ln();
+    $this->myPdf->SetFont('Arial','u',12);
+    $this->myPdf->Cell(40,10,utf8_decode('Prix du billet: '));
+    $this->myPdf->SetFont('Arial','',12);
+    $this->myPdf->Cell(40,10,utf8_decode($aParams['prixPlace']." euros"));
+    $this->myPdf->Ln();
+    $this->myPdf->Ln();
 
-    $$this->myPdf->TitreChapitre('INFORMATION CLIENT');
+    $this->myPdf->TitreChapitre('INFORMATION CLIENT');
     //--------------------------------- client
 
-    $$this->myPdf->SetFont('Arial','u',12);
-    $$this->myPdf->Cell(40,10,txt('Client: '));
-    $$this->myPdf->SetFont('Arial','',12);
-    $$this->myPdf->Cell(40,10,txt($aParams['client']));
-    $$this->myPdf->Ln();
+    $this->myPdf->SetFont('Arial','u',12);
+    $this->myPdf->Cell(40,10,utf8_decode('Client: '));
+    $this->myPdf->SetFont('Arial','',12);
+    $this->myPdf->Cell(40,10,utf8_decode($aParams['nomClient']));
+    $this->myPdf->Ln();
 
-    $$this->myPdf->SetFont('Arial','u',12);
-    $$this->myPdf->Cell(40,10,txt('Adresse: '));
-    $$this->myPdf->SetFont('Arial','',12);
-    $$this->myPdf->Cell(40,10,txt($aParams['adr_rue']." ".$aParams['adr_cp']." ".$aParams['adr_ville']));
-    $$this->myPdf->Ln();
-    $$this->myPdf->Ln();
+    $this->myPdf->SetFont('Arial','u',12);
+    $this->myPdf->Cell(40,10,utf8_decode('Adresse: '));
+    $this->myPdf->SetFont('Arial','',12);
+    $this->myPdf->Cell(40,10,utf8_decode($aParams['adr_rue']." ".$aParams['adr_cp']." ".$aParams['adr_ville']));
+    $this->myPdf->Ln();
+    $this->myPdf->Ln();
 
-    $$this->myPdf->TitreChapitre('INFORMATION RESERVATION');
+    $this->myPdf->TitreChapitre('INFORMATION RESERVATION');
     //--------------------------------- reservation
-    $$this->myPdf->Cell(0,10,"Reservation faite par l'agence numero: ".$aParams['gnc_id'],'C');
-    $$this->myPdf->Line(10,180,200,180);
-    $$this->myPdf->Ln();
-    $$this->myPdf->Ln();
-    $$this->myPdf->SetFont('Arial','u',12);
-    $$this->myPdf->Cell(40,10,txt('Nombre de places: '));
-    $$this->myPdf->SetFont('Arial','',12);
-    $$this->myPdf->Cell(40,10,txt($aParams['nbPlaces']));
-    $$this->myPdf->Ln();
+    $this->myPdf->Cell(0,10,utf8_decode("Reservation faite par l'agence: ".$_SESSION["login"]),'C');
+    $this->myPdf->Line(10,180,200,180);
+    $this->myPdf->Ln();
+    $this->myPdf->Ln();
+    $this->myPdf->SetFont('Arial','u',12);
+    $this->myPdf->Cell(40,10,utf8_decode('Nombre de places: '));
+    $this->myPdf->SetFont('Arial','',12);
+    $this->myPdf->Cell(40,10,utf8_decode($aParams['place']));
+    $this->myPdf->Ln();
 
-    $$this->myPdf->SetFont('Arial','u',12);
-    $$this->myPdf->Cell(40,10,txt('Prix total: '));
-    $$this->myPdf->SetFont('Arial','',12);
-    $$this->myPdf->Cell(40,10,txt($aParams['prix_calc']." euros"));
-    $$this->myPdf->Ln();
+    $this->myPdf->SetFont('Arial','u',12);
+    $this->myPdf->Cell(40,10,utf8_decode('Prix total: '));
+    $this->myPdf->SetFont('Arial','',12);
+    $this->myPdf->Cell(40,10,utf8_decode($aParams['prixTotal']." euros"));
+    $this->myPdf->Ln();
 
     //code BArre
-    $$this->myPdf->Codabar(120,190,$aParams['rsr_num']);
+    $this->myPdf->Codabar(120,190,$aParams['rsr_num']);
 
     //
-    $$this->myPdf->Output('I', 'res_'.$aParams['vol'].'.pdf');
+    $this->myPdf->Output('I', 'res_'.$aParams['vol'].'.pdf');
 ?>

@@ -189,6 +189,7 @@ class Manager extends CI_Controller {
         
         public function affichageDesReservations(){
           $data['table']= $this->Reservations_dao->getResas();
+          $data['agence']= $this->Reservation_dao->getAgences();
           $this->load->view('reservations',$data);
         }
         
@@ -209,8 +210,9 @@ class Manager extends CI_Controller {
         
         public function pdf(){
             $vData= $this->uri->segment(3);
-            $data['table']= $this->Reservations_dao->getResa($vData);
-           // $this->load->library('myFpdf');
+            $vData2= $this->uri->segment(4);
+            $data['table']= $this->Reservations_dao->getResa($vData,$vData2);
+            $this->load->library('myFpdf');
             $this->load->view('fpdf',$data);
             
         }
@@ -218,7 +220,7 @@ class Manager extends CI_Controller {
         public function ajouterClient(){
             $vData= $this->uri->segment(3); //date_dep
             $data['table']= $this->Reservation_dao->getVol($vData);
-           // var_dump($data);
+            //var_dump($data);
             $this->load->view('newClient',$data);
         }
         

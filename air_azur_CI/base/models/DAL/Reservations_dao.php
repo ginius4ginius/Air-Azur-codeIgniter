@@ -2,7 +2,7 @@
 
 class Reservations_dao extends CI_Model {
     
-    public function getResa($vData) {
+    public function getResa($vData,$vData2) {
         
             $this->db->select("rsr_num,
                 client.nom as 'nomClient',
@@ -24,6 +24,7 @@ class Reservations_dao extends CI_Model {
             $this->db->join('client', 'client.cln_id = reservation.cln_id');
             $this->db->join('vol_g', 'vol_g.vlg_num= reservation.vlg_num');
             $this->db->where('rsr_num', $vData);
+            $this->db->where('gnc_id', $vData2);
             return $this->db->get()->result();
         }
     

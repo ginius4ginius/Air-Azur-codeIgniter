@@ -9,6 +9,12 @@ class Reservation_dao extends CI_Model {
         return $this->db->get()->result();
     }
     
+    public function getAgences(){
+        $this->db->select('gnc_id');
+        $this->db->from('agence');
+        return $this->db->get()->result();
+    }
+    
     public function getClients() {
         $this->db->select('cln_id,nom,prenom');
         $this->db->from('client');
