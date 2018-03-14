@@ -85,14 +85,14 @@ class RPDF extends FPDF
 
 }
 
-
-
     foreach($table as $don):
         $aParams['vol'] = $don->vol;
         $aParams['date_dep'] = $don->date_dep;
         $aParams['date_arr'] = $don->date_arr;
+        $aParams['heure_dep'] = $don->heure_dep;
+        $aParams['heure_arr'] = $don->heure_arr;
         $aParams['prixPlace'] = $don->prixPlace;
-        $aParams['nomClient'] = $don->nomClient.' - '.$don->prenomClient;
+        $aParams['nomClient'] = $don->nomClient.' '.$don->prenomClient;
         $aParams['adr_rue'] = $don->adr_rue;
         $aParams['adr_cp'] = $don->adr_cp;
         $aParams['adr_ville'] = $don->adr_ville;
@@ -100,6 +100,7 @@ class RPDF extends FPDF
         $aParams['place'] = $don->place;
         $aParams['prixTotal'] = $don->prixTotal;
         $aParams['rsr_num'] = $don->rsr_num;
+        $aParams['dateResa'] = $don->dateResa;
     endforeach;
                     
 // Instanciation de la classe dérivée
@@ -117,13 +118,13 @@ class RPDF extends FPDF
     $this->myPdf->SetFont('Arial','u',12);
     $this->myPdf->Cell(40,10,utf8_decode('Départ: '));
     $this->myPdf->SetFont('Arial','',12);
-    $this->myPdf->Cell(40,10,utf8_decode($aParams['date_dep']));
+    $this->myPdf->Cell(40,10,utf8_decode($aParams['date_dep'].' - '.$aParams['heure_dep']));
     $this->myPdf->Ln();
 
     $this->myPdf->SetFont('Arial','u',12);
     $this->myPdf->Cell(40,10,utf8_decode('Arrivée: '));
     $this->myPdf->SetFont('Arial','',12);
-    $this->myPdf->Cell(40,10,utf8_decode($aParams['date_arr']));
+    $this->myPdf->Cell(40,10,utf8_decode($aParams['date_arr'].' - '.$aParams['heure_arr']));
     $this->myPdf->Ln();
     $this->myPdf->SetFont('Arial','u',12);
     $this->myPdf->Cell(40,10,utf8_decode('Prix du billet: '));
@@ -154,6 +155,12 @@ class RPDF extends FPDF
     $this->myPdf->Line(10,180,200,180);
     $this->myPdf->Ln();
     $this->myPdf->Ln();
+    $this->myPdf->SetFont('Arial','u',12);
+    $this->myPdf->Cell(40,10,utf8_decode('Date réservation: '));
+    $this->myPdf->SetFont('Arial','',12);
+    $this->myPdf->Cell(40,10,utf8_decode($aParams['dateResa']));
+    $this->myPdf->Ln();
+    
     $this->myPdf->SetFont('Arial','u',12);
     $this->myPdf->Cell(40,10,utf8_decode('Nombre de places: '));
     $this->myPdf->SetFont('Arial','',12);

@@ -77,12 +77,9 @@ class Manager extends CI_Controller {
             
             if ($this->form_validation->run() == false) {
                 
-            $data['table']= $this->Reservations_dao->getResas();
-            $this->load->view('reservations',$data);   
+            $this->modifierReservation();
             
                 }else {
-                    
-            
             $tab['table']= $this->Reservations_dao->getResa($vData,$vData2);
             $tab['place']=$_POST["places"];
             $this->Reservations_dao->updateResa($tab);
@@ -100,8 +97,8 @@ class Manager extends CI_Controller {
                  $this->form_validation->set_rules('adr_ville', 'ville', 'trim|required|min_length[2]|alpha|encode_php_tags');
             
             if ($this->form_validation->run() == false) {
-                $vdata['tab1e']= $this->Reservation_dao->getVol($vData);
-                $this->load->view('newClient',$vData);
+                $this->ajouterClient();
+                
                 }else {
                     $oClient['nom']=$_POST["nom"];
                     $oClient['prenom']=$_POST["prenom"];
