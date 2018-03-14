@@ -26,6 +26,7 @@
             echo form_label('Nombre de places :', 'places');
             $value= array('name'=>'places','id'=>'places');
             echo form_input($value);
+            echo form_error('places');
             
             echo '<br /><br />';
             

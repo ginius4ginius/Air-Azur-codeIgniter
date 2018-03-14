@@ -73,7 +73,7 @@ class Manager extends CI_Controller {
             $vData2= $this->uri->segment(4);
             $place=$_POST["places"];
             
-            $this->form_validation->set_rules('places', 'nom de places', 'trim|required|min_length[1]|encode_php_tags');
+            $this->form_validation->set_rules('places', 'nom de places', 'trim|required|numeric|min_length[1]|encode_php_tags');
             
             if ($this->form_validation->run() == false) {
                 
@@ -93,16 +93,15 @@ class Manager extends CI_Controller {
         
         public function controleClient(){
             $vData= $this->uri->segment(3);
-             $this->form_validation->set_rules('nom', 'nom', 'trim|required|min_length[2]|encode_php_tags');
-              $this->form_validation->set_rules('prenom', 'prenom', 'trim|required|min_length[2]|encode_php_tags');
+             $this->form_validation->set_rules('nom', 'nom', 'trim|required|min_length[2]|alpha|encode_php_tags');
+              $this->form_validation->set_rules('prenom', 'prenom', 'trim|required|min_length[2]|alpha|encode_php_tags');
                $this->form_validation->set_rules('adr_rue', 'rue', 'trim|required|min_length[5]|encode_php_tags');
-                $this->form_validation->set_rules('adr_cp', 'code postal', 'trim|required|min_length[5]|encode_php_tags');
-                 $this->form_validation->set_rules('adr_ville', 'ville', 'trim|required|min_length[2]|encode_php_tags');
+                $this->form_validation->set_rules('adr_cp', 'code postal', 'trim|numeric|required|min_length[5]|max_length[5]|encode_php_tags');
+                 $this->form_validation->set_rules('adr_ville', 'ville', 'trim|required|min_length[2]|alpha|encode_php_tags');
             
             if ($this->form_validation->run() == false) {
-                $data['tab1e']= $this->Reservation_dao->getVol($vData);
+                $vdata['tab1e']= $this->Reservation_dao->getVol($vData);
                 $this->load->view('newClient',$vData);
-            
                 }else {
                     $oClient['nom']=$_POST["nom"];
                     $oClient['prenom']=$_POST["prenom"];
@@ -121,7 +120,7 @@ class Manager extends CI_Controller {
         
         public function controleResa(){
             $vData= $this->uri->segment(3);
-             $this->form_validation->set_rules('nbrPlaces', 'places', 'trim|required|min_length[1]|encode_php_tags');
+             $this->form_validation->set_rules('nbrPlaces', 'places', 'trim|required|min_length[1]|numeric|encode_php_tags');
             
             if ($this->form_validation->run() == false) {
                 $data['tab1e']= $this->Reservation_dao->getVol($vData);
