@@ -3,35 +3,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Manager extends CI_Controller {
     
-    //chargement automatique, l'index renvoi à la page demandé
-	public function index()
-	{
-            $sLocation = "login";
-                        if(isset($_REQUEST['action'])) {
-                                switch($_REQUEST['action']) {
-                                  case 'reservation':
-                                    $sLocation = "reservation.php";
-                                    break;
-                                  //
-                                  case 'catalog':
-                                    $sLocation = "catalog.php";
-                                    break;
-                                  //
-                                  case 'home':
-                                    $sLocation = "home.php";
-                                    break;
-                                }
-                        }
-                            
-                    $this->load->view($sLocation);
-                    
+    //chargement automatique de la page login
+	public function index(){
+            $this->load->view("login");
 	}
-     
+       
+    /* appel de la fonction depuis le menu
+     * envoi à la vue home 
+     */
+        public function affichageHome(){
+            $this->load->view("home");
+        }
+        
     /* appel de la fonction depuis la vue login qui controle le formulaire
      * envoi à login si false ou à home si true 
-     */   
-        public function controleLogin()
-	{
+     */
+        public function controleLogin(){
             
             $nom=$_POST["login"];
             $mdp=$_POST["motDePasse"];
