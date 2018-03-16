@@ -140,6 +140,8 @@ class Dao extends CI_Model {
             v.heure_dep,
             v.heure_arr,
            (nbr_places - coalesce((select sum(nbr_places_res) from reservation r where r.vlg_num=vol.vlg_num and r.date_dep=vol.date_dep), 0))as places,
+           (coalesce((select sum(nbr_places_res) from reservation r where r.vlg_num=vol.vlg_num and r.date_dep=vol.date_dep), 0))as placeBase,
+
             v.prix,
             ad.arp_nom as 'nomdep',
             aa.arp_nom as 'nomarr'");

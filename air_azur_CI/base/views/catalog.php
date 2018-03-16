@@ -19,7 +19,8 @@
             echo '<th>Date arrivée</th>';
             echo '<th>Heure de Départ</th>';
             echo '<th>Heure arrivee</th>';
-            echo '<th>Place</th>';
+            echo '<th>Places disponibles</th>';
+            echo '<th>Places réservées</th>';
             echo '<th>Prix</th>';
             echo '<th>Aéroport départ</th>';
             echo '<th>Aéroport arrivee</th>';
@@ -35,6 +36,7 @@
                     echo '<td>'.$don->heure_dep.'</td>';
                     echo '<td>'.$don->heure_arr.'</td>';
                     echo '<td>'.$don->places.'</td>';
+                    echo '<td>'.$don->placeBase.'</td>';
                     echo '<td>'.$don->prix.'</td>';
                     echo '<td>'.$don->nomdep.'</td>';
                     echo '<td>'.$don->nomarr.'</td>';
